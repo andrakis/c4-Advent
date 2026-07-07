@@ -244,7 +244,7 @@ static bool spotted_by_pirate(int i) {
 	}
 	int snarfed = 0;
 	bool movechest = false, robplayer = false;
-	for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
+	for (int treasure = 1; treasure < NOBJECTS; treasure++) {
 		if (!objects[treasure].is_treasure) {
 			continue;
 		}
@@ -288,7 +288,7 @@ static bool spotted_by_pirate(int i) {
 	}
 	if (robplayer) {
 		rspeak(PIRATE_POUNCES);
-		for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
+		for (int treasure = 1; treasure < NOBJECTS; treasure++) {
 			if (!objects[treasure].is_treasure) {
 				continue;
 			}
@@ -519,8 +519,8 @@ static void croak(void) {
 		if (TOTING(LAMP)) {
 			game.objects[LAMP].prop = LAMP_DARK;
 		}
-		for (int j = 1; j <= NOBJECTS; j++) {
-			int i = NOBJECTS + 1 - j;
+		for (int j = 1; j < NOBJECTS; j++) {
+			int i = NOBJECTS - j;
 			if (TOTING(i)) {
 				/* Always leave lamp where it's accessible
 				 * aboveground */
@@ -1030,7 +1030,7 @@ static bool closecheck(void) {
 		put(MIRROR, LOC_NE, STATE_FOUND);
 		game.objects[MIRROR].fixed = LOC_SW;
 
-		for (int i = 1; i <= NOBJECTS; i++) {
+		for (int i = 1; i < NOBJECTS; i++) {
 			if (TOTING(i)) {
 				DESTROY(i);
 			}
@@ -1058,7 +1058,7 @@ static void listobjects(void) {
 		for (int i = game.locs[game.loc].atloc; i != 0;
 		     i = game.link[i]) {
 			obj_t obj = i;
-			if (obj > NOBJECTS) {
+			if (obj >= NOBJECTS) {
 				obj = obj - NOBJECTS;
 			}
 			if (obj == STEPS && TOTING(NUGGET)) {
@@ -1278,7 +1278,7 @@ static bool do_command(void) {
 				    TOTING(OYSTER)) {
 					pspeak(OYSTER, look, true, 1);
 				}
-				for (size_t i = 1; i <= NOBJECTS; i++) {
+				for (size_t i = 1; i < NOBJECTS; i++) {
 					if (TOTING(i) &&
 					    (OBJECT_IS_NOTFOUND(i) ||
 					     OBJECT_IS_STASHED(i))) {

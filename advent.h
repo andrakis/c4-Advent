@@ -20,7 +20,7 @@
 
 #define LINESIZE 1024
 #define TOKLEN 5          // # outputting characters in a token */
-#define PIRATE NDWARVES   // must be NDWARVES-1 when zero-origin
+#define PIRATE NDWARVES
 #define DALTLC LOC_NUGGET // alternate dwarf location
 #define INVLIMIT 7        // inventory limit (# of objects)
 #define INTRANSITIVE -1   // illegal object number
@@ -227,7 +227,7 @@ struct game_t {
 	struct {
 		int32_t abbrev; // has location been seen?
 		int32_t atloc;  // head of object linked list per location
-	} locs[NLOCATIONS + 1];
+	} locs[NLOCATIONS];
 	struct {
 		int32_t seen; // true if dwarf has seen him
 		loc_t loc;    // location of dwarves, initially hard-wired in
@@ -237,12 +237,12 @@ struct game_t {
 		loc_t fixed;  // fixed location of object (if not IS_FREE)
 		int32_t prop; // object state
 		loc_t place;  // location of object
-	} objects[NOBJECTS + 1];
+	} objects[NOBJECTS];
 	struct {
 		bool32_t used; // hints[i].used = true iff hint i has been used.
 		int32_t lc;    // hints[i].lc = show int at LOC with cond bit i
 	} hints[NHINTS];
-	obj_t link[NOBJECTS * 2 + 1]; // object-list links
+	obj_t link[NOBJECTS * 2]; // object-list links
 };
 
 /*
@@ -287,11 +287,12 @@ typedef struct {
 /*
  * Bump on save format change.
  *
- * Note: Verify that the tests run clean before bumping this, then rebuild the
- * check files afterwards.  Otherwise you will get a spurious failure due to the
- * old version having been generated into a check file.
+ * Note: Verify that the tests run clean before bumping this, then
+ * rebuild the check files afterwards with "make -B buildchexks".
+ * Otherwise you will get a spurious failure due to the old version
+ * having been generated into a check file.
  */
-#define SAVE_VERSION 31
+#define SAVE_VERSION 32
 
 /*
  * Goes at start of file so saves can be identified by file(1) and the like.

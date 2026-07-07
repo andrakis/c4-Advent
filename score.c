@@ -37,7 +37,7 @@ int score(enum termination mode) {
 	/*  First tally up the treasures.  Must be in building and not broken.
 	 *  Give the poor guy 2 points just for finding each treasure. */
 	mxscor = 0;
-	for (int i = 1; i <= NOBJECTS; i++) {
+	for (int i = 1; i < NOBJECTS; i++) {
 		if (!objects[i].is_treasure) {
 			continue;
 		}
@@ -143,10 +143,10 @@ void terminate(enum termination mode) {
 		rspeak(WITHOUT_SUSPENDS);
 	}
 	rspeak(TOTAL_SCORE, points, mxscor, game.turns, game.turns);
-	for (int i = 1; i <= (int)NCLASSES; i++) {
+	for (int i = 1; i < (int)NCLASSES; i++) {
 		if (classes[i].threshold >= points) {
 			speak(classes[i].message);
-			if (i < (int)NCLASSES) {
+			if (i < (int)NCLASSES - 1) {
 				int nxt = classes[i].threshold + 1 - points;
 				rspeak(NEXT_HIGHER, nxt, nxt);
 			} else {

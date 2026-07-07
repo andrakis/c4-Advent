@@ -127,7 +127,7 @@ static phase_codes_t attack(command_t command) {
 		move(DRAGON, LOC_SECRET5);
 		move(RUG, LOC_SECRET5);
 		drop(BLOOD, LOC_SECRET5);
-		for (obj_t i = 1; i <= NOBJECTS; i++) {
+		for (obj_t i = 1; i < NOBJECTS; i++) {
 			if (game.objects[i].place == objects[DRAGON].plac ||
 			    game.objects[i].place == objects[DRAGON].fixd) {
 				move(i, LOC_SECRET5);
@@ -897,7 +897,7 @@ static phase_codes_t inven(void) {
 	/* Inventory. If object, treat same as find.  Else report on current
 	 * burden. */
 	bool empty = true;
-	for (obj_t i = 1; i <= NOBJECTS; i++) {
+	for (obj_t i = 1; i < NOBJECTS; i++) {
 		if (i == BEAR || !TOTING(i)) {
 			continue;
 		}
@@ -968,7 +968,7 @@ static phase_codes_t listen(void) {
 		}
 		soundlatch = true;
 	}
-	for (obj_t i = 1; i <= NOBJECTS; i++) {
+		for (obj_t i = 1; i < NOBJECTS; i++) {
 		if (!HERE(i) || objects[i].sounds[0] == NULL ||
 		    OBJECT_IS_STASHED(i) || OBJECT_IS_NOTFOUND(i)) {
 			continue;
@@ -1148,7 +1148,7 @@ static phase_codes_t read(command_t command)
 {
 	if (command.obj == INTRANSITIVE) {
 		command.obj = NO_OBJECT;
-		for (int i = 1; i <= NOBJECTS; i++) {
+		for (int i = 1; i < NOBJECTS; i++) {
 			if (HERE(i) && objects[i].texts[0] != NULL &&
 			    !OBJECT_IS_STASHED(i)) {
 				command.obj = command.obj * NOBJECTS + i;

@@ -192,29 +192,29 @@ bool is_valid(struct game_t valgame) {
 	}
 
 	/*  Bounds check for locations */
-	if (valgame.chloc < -1 || valgame.chloc > NLOCATIONS ||
-	    valgame.chloc2 < -1 || valgame.chloc2 > NLOCATIONS ||
-	    valgame.loc < 0 || valgame.loc > NLOCATIONS || valgame.newloc < 0 ||
-	    valgame.newloc > NLOCATIONS || valgame.oldloc < 0 ||
-	    valgame.oldloc > NLOCATIONS || valgame.oldlc2 < 0 ||
-	    valgame.oldlc2 > NLOCATIONS) {
+	if (valgame.chloc < -1 || valgame.chloc >= NLOCATIONS ||
+	    valgame.chloc2 < -1 || valgame.chloc2 >= NLOCATIONS ||
+	    valgame.loc < 0 || valgame.loc >= NLOCATIONS ||
+	    valgame.newloc < 0 || valgame.newloc >= NLOCATIONS ||
+	    valgame.oldloc < 0 || valgame.oldloc >= NLOCATIONS ||
+	    valgame.oldlc2 < 0 || valgame.oldlc2 >= NLOCATIONS) {
 		return false; // LCOV_EXCL_LINE
 	}
 	/*  Bounds check for location arrays */
 	for (int i = 0; i <= NDWARVES; i++) {
 		if (valgame.dwarves[i].loc < -1 ||
-		    valgame.dwarves[i].loc > NLOCATIONS ||
+		    valgame.dwarves[i].loc >= NLOCATIONS ||
 		    valgame.dwarves[i].oldloc < -1 ||
-		    valgame.dwarves[i].oldloc > NLOCATIONS) {
+		    valgame.dwarves[i].oldloc >= NLOCATIONS) {
 			return false; // LCOV_EXCL_LINE
 		}
 	}
 
-	for (int i = 0; i <= NOBJECTS; i++) {
+	for (int i = 0; i < NOBJECTS; i++) {
 		if (valgame.objects[i].place < -1 ||
-		    valgame.objects[i].place > NLOCATIONS ||
+		    valgame.objects[i].place >= NLOCATIONS ||
 		    valgame.objects[i].fixed < -1 ||
-		    valgame.objects[i].fixed > NLOCATIONS) {
+		    valgame.objects[i].fixed >= NLOCATIONS) {
 			return false; // LCOV_EXCL_LINE
 		}
 	}
@@ -232,7 +232,7 @@ bool is_valid(struct game_t valgame) {
 
 	/* Recalculate tally, throw the towel if in disagreement */
 	int temp_tally = 0;
-	for (int treasure = 1; treasure <= NOBJECTS; treasure++) {
+	for (int treasure = 1; treasure < NOBJECTS; treasure++) {
 		if (objects[treasure].is_treasure) {
 			if (OBJECT_IS_NOTFOUND2(valgame, treasure)) {
 				++temp_tally;
@@ -244,7 +244,7 @@ bool is_valid(struct game_t valgame) {
 	}
 
 	/* Check that properties of objects aren't beyond expected */
-	for (obj_t obj = 0; obj <= NOBJECTS; obj++) {
+	for (obj_t obj = 0; obj < NOBJECTS; obj++) {
 		if (PROP_IS_INVALID(valgame.objects[obj].prop)) {
 			return false; // LCOV_EXCL_LINE
 		}
@@ -252,15 +252,15 @@ bool is_valid(struct game_t valgame) {
 
 	/* Check that values in linked lists for objects in locations are inside
 	 * bounds */
-	for (loc_t loc = LOC_NOWHERE; loc <= NLOCATIONS; loc++) {
+	for (loc_t loc = LOC_NOWHERE; loc < NLOCATIONS; loc++) {
 		if (valgame.locs[loc].atloc < NO_OBJECT ||
-		    valgame.locs[loc].atloc > NOBJECTS * 2) {
+		    valgame.locs[loc].atloc >= NOBJECTS * 2) {
 			return false; // LCOV_EXCL_LINE
 		}
 	}
-	for (obj_t obj = 0; obj <= NOBJECTS * 2; obj++) {
+	for (obj_t obj = 0; obj < NOBJECTS * 2; obj++) {
 		if (valgame.link[obj] < NO_OBJECT ||
-		    valgame.link[obj] > NOBJECTS * 2) {
+		    valgame.link[obj] >= NOBJECTS * 2) {
 			return false; // LCOV_EXCL_LINE
 		}
 	}

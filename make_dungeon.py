@@ -641,10 +641,10 @@ if __name__ == "__main__":
     deathbird = len(dict(db["objects"])["BIRD"]["sounds"]) - 1
 
     h = h_template.format(
-        num_locations=len(db["locations"]) - 1,
-        num_objects=len(db["objects"]) - 1,
+        num_locations=len(db["locations"]),
+        num_objects=len(db["objects"]),
         num_hints=len(db["hints"]),
-        num_classes=len(db["classes"]) - 1,
+        num_classes=len(db["classes"]),
         num_deaths=len(db["obituaries"]),
         num_thresholds=len(db["turn_thresholds"]),
         num_motions=len(db["motions"]),

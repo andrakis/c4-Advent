@@ -396,9 +396,7 @@ static int get_motion_vocab_id(const char *word) {
 
 static int get_object_vocab_id(const char *word) {
 	// Return the first object number that has 'word' as one of its words.
-	for (int i = 0; i < NOBJECTS + 1;
-	     ++i) { // FIXME: the + 1 should go when 1-indexing for objects is
-		    // removed
+	for (int i = 0; i < NOBJECTS; ++i) {
 		for (int j = 0; j < objects[i].words.n; ++j) {
 			if (strncasecmp(word, objects[i].words.strs[j],
 			                TOKLEN) == 0) {
@@ -628,7 +626,7 @@ void move(obj_t object, loc_t where) {
 	 *  remove objects from game atloc chains. */
 	loc_t from;
 
-	if (object > NOBJECTS) {
+	if (object >= NOBJECTS) {
 		from = game.objects[object - NOBJECTS].fixed;
 	} else {
 		from = game.objects[object].place;
@@ -658,7 +656,7 @@ void carry(obj_t object, loc_t where) {
 	 * or game.holdng. */
 	int temp;
 
-	if (object <= NOBJECTS) {
+	if (object < NOBJECTS) {
 		if (game.objects[object].place == CARRIED) {
 			return;
 		}
@@ -690,7 +688,7 @@ void drop(obj_t object, loc_t where) {
 	/*  Place an object at a given loc, prefixing it onto the game atloc
 	 * list.  Decr game.holdng if the object was being toted. No state
 	 * change on the object. */
-	if (object > NOBJECTS) {
+	if (object >= NOBJECTS) {
 		game.objects[object - NOBJECTS].fixed = where;
 	} else {
 		if (game.objects[object].place == CARRIED) {
