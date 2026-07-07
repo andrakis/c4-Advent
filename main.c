@@ -573,7 +573,7 @@ static bool traveleq(int a, int b) {
  *  him, so we need game.oldlc2, which is the last place he was
  *  safe.) */
 static void playermove(int motion) {
-	int scratchloc, travel_entry = tkey[game.loc];
+	int travel_entry = tkey[game.loc];
 	game.newloc = game.loc;
 	if (travel_entry == 0) {
 		BUG(LOCATION_HAS_NO_TRAVEL_ENTRIES); // LCOV_EXCL_LINE
@@ -604,7 +604,7 @@ static void playermove(int motion) {
 		for (;;) {
 			enum desttype_t desttype =
 			    travel[travel_entry].desttype;
-			scratchloc = travel[travel_entry].destval;
+			int scratchloc = travel[travel_entry].destval;
 			if (desttype != dest_goto || scratchloc != motion) {
 				if (desttype == dest_goto) {
 					if (FORCED(scratchloc) &&
