@@ -3,7 +3,8 @@
 // SPDX-License-Identifier: CC-BY-4.0
 
 Repository head::
-  Eliminate FORTRAN legacy 1-based indesxing; required save version bump.
+  Code hardening by chatGPT 5.5.
+  Eliminate FORTRAN legacy 1-based indexing; required save version bump.
 
 1.21: 2026-03-22::
   Code hardening with ChatGPT 5.2, cppcheck, and pylint.
