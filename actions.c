@@ -1147,17 +1147,35 @@ static phase_codes_t read(command_t command)
 /*  Read.  Print stuff based on objtxt.  Oyster (?) is special case. */
 {
 	if (command.obj == INTRANSITIVE) {
-		command.obj = NO_OBJECT;
+		typedef enum {
+			READ_INTRANSITIVE_NO_MATCH,
+			READ_INTRANSITIVE_SINGLE_MATCH,
+			READ_INTRANSITIVE_AMBIGUOUS
+		} read_intransitive_state_t;
+
+		read_intransitive_state_t state =
+		    READ_INTRANSITIVE_NO_MATCH;
+		obj_t resolved_obj = NO_OBJECT;
 		for (int i = 1; i < NOBJECTS; i++) {
 			if (HERE(i) && objects[i].texts[0] != NULL &&
 			    !OBJECT_IS_STASHED(i)) {
-				command.obj = command.obj * NOBJECTS + i;
+				switch (state) {
+				case READ_INTRANSITIVE_NO_MATCH:
+					state = READ_INTRANSITIVE_SINGLE_MATCH;
+					resolved_obj = i;
+					break;
+				case READ_INTRANSITIVE_SINGLE_MATCH:
+					state = READ_INTRANSITIVE_AMBIGUOUS;
+					break;
+				case READ_INTRANSITIVE_AMBIGUOUS:
+					break;
+				}
 			}
 		}
-		if (command.obj > NOBJECTS || command.obj == NO_OBJECT ||
-		    IS_DARK_HERE()) {
+		if (state != READ_INTRANSITIVE_SINGLE_MATCH || IS_DARK_HERE()) {
 			return GO_UNKNOWN;
 		}
+		command.obj = resolved_obj;
 	}
 
 	if (IS_DARK_HERE()) {
