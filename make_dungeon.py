@@ -544,7 +544,7 @@ def buildtravel(locs, objs):
             else:
                 condtype = "cond_not"
                 condarg1 = cond % 100
-                condarg2 = (cond - 300) // 100.0
+                condarg2 = (cond - 300) // 100
             dest = newloc % 1000
             if dest <= 300:
                 desttype = "dest_goto"
