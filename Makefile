@@ -86,8 +86,11 @@ clean:
 
 CSUPPRESSIONS = --suppress=checkersReport --suppress=missingInclude \
 	--suppress=missingIncludeSystem --suppress=invalidscanf --suppress=unmatchedSuppression
+CPPCHK_SRCS = $(wildcard *.c)
+
 cppcheck:
-	@-cppcheck -I. --quiet --template=gcc -UOBJECT_SET_SEEN --enable=all $(CSUPPRESSIONS) *.[ch]
+	@-cppcheck -I. --quiet --template=gcc -UOBJECT_SET_SEEN \
+		--check-level=exhaustive --enable=all $(CSUPPRESSIONS) $(CPPCHK_SRCS)
 
 pylint:
 	@-pylint --score=n *.py */*.py
