@@ -3,9 +3,9 @@ by Eric S. Raymond
 // SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-// spellcheck: add fons origo Beranek IFA's O'Dwyer RNG YAML
+// spellcheck: add fons et origo Beranek IFA's O'Dwyer RNG YAML
 // spellcheck: add roguelike roguelikes dnd pedit5 Yob's
-// spellcheck: add museumization
+// spellcheck: add museumization ARPANET disambiguating
 
 Adventure is the fons et origo of all later dungeon-crawling computer
 games, the granddaddy of interactive fiction, and one of the hallowed
