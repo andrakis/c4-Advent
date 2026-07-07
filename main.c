@@ -1068,7 +1068,7 @@ static void listobjects(void) {
 			 * running this code only on objects with the treasure
 			 * property set. Nope.  There is mystery here.
 			 */
-			if (OBJECT_IS_STASHED(i) || OBJECT_IS_NOTFOUND(obj)) {
+			if (OBJECT_IS_STASHED(obj) || OBJECT_IS_NOTFOUND(obj)) {
 				if (game.closed) {
 					continue;
 				}
