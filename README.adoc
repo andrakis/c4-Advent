@@ -35,9 +35,9 @@ and ship it to the maintainers.
 If you find this code useful or amusing, please 
 https://www.patreon.com/esr[support me on Patreon.]
 
-// end
-
 This code is commonly packaged as "open-adventure".
 
 image:https://repology.org/badge/vertical-allrepos/open-adventure.svg[Repology
 package status]
+
+// end

@@ -5,6 +5,7 @@
 Repository head::
   Code hardening by chatGPT 5.5.
   Eliminate FORTRAN legacy 1-based indexing; required save version bump.
+  Improved documentation of build dependencies.
 
 1.21: 2026-03-22::
   Code hardening with ChatGPT 5.2, cppcheck, and pylint.

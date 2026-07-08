@@ -510,6 +510,27 @@ def buildtravel(locs, objs):
     travel = [[0, "LOC_NOWHERE", 0, 0, 0, 0, 0, 0, "false", "false"]]
     tkey = [0]
     oldloc = 0
+
+    def decode_condition(cond, objnames):
+        if cond == 0:
+            return "cond_goto", 0, 0
+        if cond < 100:
+            return "cond_pct", cond, 0
+        if cond == 100:
+            return "cond_goto", 100, 0
+        if cond <= 200:
+            return "cond_carry", objnames[cond - 100], 0
+        if cond <= 300:
+            return "cond_with", objnames[cond - 200], 0
+        return "cond_not", cond % 100, (cond - 300) // 100
+
+    def decode_destination(dest, locnames, msgnames):
+        if dest <= 300:
+            return "dest_goto", locnames[dest]
+        if dest > 500:
+            return "dest_speak", msgnames[dest - 500]
+        return "dest_special", locnames[dest - 300]
+
     while ltravel:
         rule = list(ltravel.pop(0))
         loc = rule.pop(0)
@@ -522,39 +543,9 @@ def buildtravel(locs, objs):
         while rule:
             cond = newloc // 1000
             nodwarves = cond == 100
-            if cond == 0:
-                condtype = "cond_goto"
-                condarg1 = condarg2 = 0
-            elif cond < 100:
-                condtype = "cond_pct"
-                condarg1 = cond
-                condarg2 = 0
-            elif cond == 100:
-                condtype = "cond_goto"
-                condarg1 = 100
-                condarg2 = 0
-            elif cond <= 200:
-                condtype = "cond_carry"
-                condarg1 = objnames[cond - 100]
-                condarg2 = 0
-            elif cond <= 300:
-                condtype = "cond_with"
-                condarg1 = objnames[cond - 200]
-                condarg2 = 0
-            else:
-                condtype = "cond_not"
-                condarg1 = cond % 100
-                condarg2 = (cond - 300) // 100
+            condtype, condarg1, condarg2 = decode_condition(cond, objnames)
             dest = newloc % 1000
-            if dest <= 300:
-                desttype = "dest_goto"
-                destval = locnames[dest]
-            elif dest > 500:
-                desttype = "dest_speak"
-                destval = msgnames[dest - 500]
-            else:
-                desttype = "dest_special"
-                destval = locnames[dest - 300]
+            desttype, destval = decode_destination(dest, locnames, msgnames)
             travel.append(
                 [
                     len(tkey) - 1,
