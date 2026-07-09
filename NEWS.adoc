@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: (C) Eric S. Raymond <esr@thyrsus.com>
 // SPDX-License-Identifier: CC-BY-4.0
 
-Repository head::
+1.22: 2026-07-08::
   Code hardening by chatGPT 5.5.
   Eliminate FORTRAN legacy 1-based indexing; required save version bump.
   Improved documentation of build dependencies.
