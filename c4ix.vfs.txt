@@ -1,0 +1,4 @@
+# Open Adventure (games/advent): the game, its dungeon
+# compiled in
+advent/:
+	advent.c4r: c4ix-advent.c4r

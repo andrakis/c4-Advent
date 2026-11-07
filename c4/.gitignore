@@ -1,0 +1,3 @@
+# upstream ignores what make_dungeon.py writes; here they are the source
+!dungeon.c
+!dungeon.h

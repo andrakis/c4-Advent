@@ -4,6 +4,10 @@
  * SPDX-FileCopyrightText: (C) 1977, 2005 by Will Crowther and Don Woods
  * SPDX-License-Identifier: BSD-2-Clause
  */
+#ifndef VERSION
+#define VERSION "1.22" /* c4: upstream's Makefile takes it from NEWS.adoc */
+#endif
+
 #include <inttypes.h>
 #include <stdarg.h>
 #include <stdbool.h>
