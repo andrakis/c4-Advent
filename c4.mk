@@ -11,13 +11,13 @@ ADV       := games/advent
 ADV_UNITS := main init actions score misc saveresume
 ADV_HDRS  := $(wildcard $(ADV)/*.h $(ADV)/c4/*.h $(ADV)/c4/editline/*.h $(ADV)/c4/sys/*.h) \
              $(wildcard src/c4ix/libc/include/*.h src/c4ix/libc/include/sys/*.h)
-ADV_CC    := ./c4sp32 -c 400000 src/c4sp/lisp/c4lc.lisp -O $(IMG_G) -mfuse -fno-builtin -c -conforming \
+ADV_CC    := $(call lc32,-c 400000) -O $(IMG_G) -mfuse -fno-builtin -c -conforming \
              -I $(ADV)/c4 -I src/c4ix/libc/include -I $(ADV)
 advent-objs: $(ADV_UNITS:%=.advent/%.c4o) .advent/dungeon.c4o .advent/adv-readline.c4o
-.advent/%.c4o: $(ADV)/%.c $(ADV_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.advent/%.c4o: $(ADV)/%.c $(ADV_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .advent
 	$(ADV_CC) $< $@ > /dev/null
-.advent/%.c4o: $(ADV)/c4/%.c $(ADV_HDRS) $(C4LC_LISP) .img_g | c4sp32
+.advent/%.c4o: $(ADV)/c4/%.c $(ADV_HDRS) $(C4LC_LISP) .img_g | $(LC32_BIN)
 	@mkdir -p .advent
 	$(ADV_CC) $< $@ > /dev/null
 GAME_OBJS += advent-objs
